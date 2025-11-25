@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Book Haven Bookstore — Home</title>
+  <meta name="description" content="Book Haven Bookstore — local bookstore for readers, students, and office supplies." />
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Book Haven homepage">
+        <img src="assets/logo-inkwell-blue.png" alt="Book Haven logo" class="logo">
+        <span class="brand-name">Book Haven</span>
+      </a>
+
+      <button id="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+        ☰
+      </button>
+
+      <nav id="main-nav" class="main-nav" role="navigation" aria-label="Primary">
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="staff-picks.html">Staff Picks</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="cart-btn" class="cart-btn" aria-label="View cart">Cart (<span id="cart-count">0</span>)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main" role="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <h1 id="hero-title">Discover books that stay with you</h1>
+        <p class="lead">Curated collections, magazines, and stationery — nurturing readers & students since day one.</p>
+        <p><a class="btn primary" href="gallery.html">Browse our collection</a></p>
+      </div>
+      <figure class="hero-image" aria-hidden="true">
+        <img src="assets/hero.jpg" alt="Books stacked on a wooden table" />
+      </figure>
+    </section>
+
+    <section class="features" aria-labelledby="features-title">
+      <h2 id="features-title">What we offer</h2>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Books & Magazines</h3>
+          <p>Fiction, non-fiction, journals and magazines for every interest.</p>
+        </article>
+        <article class="card">
+          <h3>Student Resources</h3>
+          <p>Textbooks, study guides, and stationery for school and university.</p>
+        </article>
+        <article class="card">
+          <h3>Local Recommendations</h3>
+          <p>Staff picks and community event announcements.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="subscribe" aria-labelledby="subscribe-title">
+      <h2 id="subscribe-title">Stay in the loop</h2>
+      <p>Subscribe to our newsletter for new arrivals, events, and special offers.</p>
+      <form id="subscribe-form" class="form-inline" novalidate>
+        <label for="subscriber-email" class="visually-hidden">Email address</label>
+        <input id="subscriber-email" name="email" type="email" placeholder="you@example.com" required aria-required="true" />
+        <button type="submit" class="btn secondary">Subscribe</button>
+      </form>
+      <p id="subscribe-msg" aria-live="polite" class="sr-only"></p>
+    </section>
+
+    <section class="hours" aria-labelledby="hours-title">
+      <h2 id="hours-title">Hours</h2>
+      <p>Mon–Fri: 9 a.m.–8 p.m. | Sat: 10 a.m.–6 p.m. | Sun: 11 a.m.–5 p.m.</p>
+    </section>
+
+  </main>
+
+  <!-- Cart modal -->
+  <div id="cart-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="cart-title">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close cart">&times;</button>
+      <h2 id="cart-title">Your Cart</h2>
+      <div id="cart-items" class="cart-items" role="list"></div>
+      <div class="cart-actions">
+        <button id="clear-cart" class="btn danger">Clear Cart</button>
+        <button id="process-order" class="btn primary">Process Order</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div>
+        <p>&copy; <span id="year"></span> Book Haven Bookstore</p>
+        <p><a href="about.html">Contact</a> • <a href="#">Privacy</a></p>
+      </div>
+      <div>
+        <p>Find us: 123 Main St., your town</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js" defer></script>
+</body>
+</html>
