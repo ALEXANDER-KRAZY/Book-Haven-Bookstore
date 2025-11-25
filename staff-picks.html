@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Book Haven — Staff Picks</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Book Haven homepage">
+        <img src="assets/logo-inkwell-blue.png" alt="Book Haven logo" class="logo">
+        <span class="brand-name">Book Haven</span>
+      </a>
+
+      <nav class="main-nav" role="navigation" aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="staff-picks.html" class="active">Staff Picks</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="cart-btn-4" class="cart-btn" aria-label="View cart">Cart (<span id="cart-count-4">0</span>)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <h1>Staff Picks & Recommendations</h1>
+    <p>Curated by our team — books we love and recommend this month.</p>
+
+    <section class="staff-grid">
+      <article class="staff-card" tabindex="0" aria-describedby="pick1-desc">
+        <img src="assets/gallery3.jpg" alt="Sorcerer's Shadowed Chronicles cover">
+        <div class="staff-card-body">
+          <h3>Sorcerer's Shadowed Chronicles</h3>
+          <p id="pick1-desc" class="sr-only">Recommended for fantasy lovers who enjoy immersive world building.</p>
+          <button class="btn small reveal" data-msg="A fast-paced adventure with memorable characters.">Why we love it</button>
+        </div>
+      </article>
+
+      <article class="staff-card" tabindex="0" aria-describedby="pick2-desc">
+        <img src="assets/gallery1.jpg" alt="Brie Mine 4Ever cover">
+        <div class="staff-card-body">
+          <h3>Brie Mine 4Ever</h3>
+          <p id="pick2-desc" class="sr-only">A cozy read for food lovers.</p>
+          <button class="btn small reveal" data-msg="A delightful culinary love story that pairs well with cheese boards.">Why we love it</button>
+        </div>
+      </article>
+
+      <article class="staff-card" tabindex="0" aria-describedby="pick3-desc">
+        <img src="assets/gallery5.jpg" alt="Travel magazine cover">
+        <div class="staff-card-body">
+          <h3>Travel</h3>
+          <p id="pick3-desc" class="sr-only">Great for trip inspiration and photography.</p>
+          <button class="btn small reveal" data-msg="Beautiful photography and practical tips for explorers.">Why we love it</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div><p>&copy; <span id="year-4"></span> Book Haven Bookstore</p></div>
+    </div>
+  </footer>
+
+  <script src="js/script.js" defer></script>
+</body>
+</html>
