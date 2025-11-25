@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Book Haven Bookstore — Gallery</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Book Haven homepage">
+        <img src="assets/logo-inkwell-blue.png" alt="Book Haven logo" class="logo">
+        <span class="brand-name">Book Haven</span>
+      </a>
+
+      <button id="nav-toggle-2" aria-controls="main-nav-2" aria-expanded="false" aria-label="Toggle navigation">
+        ☰
+      </button>
+
+      <nav id="main-nav-2" class="main-nav" role="navigation" aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="gallery.html" class="active">Gallery</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="staff-picks.html">Staff Picks</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="cart-btn-2" class="cart-btn" aria-label="View cart">Cart (<span id="cart-count-2">0</span>)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <h1>Gallery</h1>
+    <p class="lead">Browse our featured books, magazines, and accessories.</p>
+
+    <section class="gallery-grid" aria-label="Product gallery">
+      <!-- Products: Ensure assets filenames match -->
+      <article class="product" data-id="g1" data-title="Brie Mine 4Ever" data-price="12.99">
+        <img src="assets/gallery1.jpg" alt="Cover of Brie Mine 4Ever — book for cheese lovers">
+        <div class="product-meta">
+          <h3>Brie Mine 4Ever</h3>
+          <p class="price">$12.99</p>
+          <button class="btn add-to-cart" data-id="g1">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="product" data-id="g2" data-title="Glory Riders" data-price="14.99">
+        <img src="assets/gallery2.jpg" alt="Cover of Glory Riders — book about bikers">
+        <div class="product-meta">
+          <h3>Glory Riders</h3>
+          <p class="price">$14.99</p>
+          <button class="btn add-to-cart" data-id="g2">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="product" data-id="g3" data-title="Sorcerer's Shadowed Chronicles" data-price="19.99">
+        <img src="assets/gallery3.jpg" alt="Cover of Sorcerer's Shadowed Chronicles — fantasy book">
+        <div class="product-meta">
+          <h3>Sorcerer's Shadowed Chronicles</h3>
+          <p class="price">$19.99</p>
+          <button class="btn add-to-cart" data-id="g3">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="product" data-id="g4" data-title="Ball Magazine" data-price="6.99">
+        <img src="assets/gallery4.jpg" alt="Ball magazine about pickleball">
+        <div class="product-meta">
+          <h3>Ball</h3>
+          <p class="price">$6.99</p>
+          <button class="btn add-to-cart" data-id="g4">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="product" data-id="g5" data-title="Travel Magazine" data-price="8.99">
+        <img src="assets/gallery5.jpg" alt="Travel magazine cover">
+        <div class="product-meta">
+          <h3>Travel</h3>
+          <p class="price">$8.99</p>
+          <button class="btn add-to-cart" data-id="g5">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="product" data-id="g6" data-title="Eat. Magazine" data-price="7.99">
+        <img src="assets/gallery6.jpg" alt="Eat. magazine for foodies">
+        <div class="product-meta">
+          <h3>Eat.</h3>
+          <p class="price">$7.99</p>
+          <button class="btn add-to-cart" data-id="g6">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="product" data-id="g7" data-title="Canvas Tote Bag" data-price="9.99">
+        <img src="assets/gallery7.jpg" alt="Canvas tote bag: ALL I DO IS READ READ READ">
+        <div class="product-meta">
+          <h3>Canvas Tote</h3>
+          <p class="price">$9.99</p>
+          <button class="btn add-to-cart" data-id="g7">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="product" data-id="g8" data-title="Book Haven Notebook" data-price="4.99">
+        <img src="assets/gallery8.jpg" alt="Book Haven Notebook with logo">
+        <div class="product-meta">
+          <h3>Notebook</h3>
+          <p class="price">$4.99</p>
+          <button class="btn add-to-cart" data-id="g8">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="product" data-id="g9" data-title="Sticker Pack" data-price="3.49">
+        <img src="assets/gallery9.jpg" alt="Book Haven stickers promoting reading">
+        <div class="product-meta">
+          <h3>Stickers</h3>
+          <p class="price">$3.49</p>
+          <button class="btn add-to-cart" data-id="g9">Add to Cart</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Reuse cart modal -->
+  <div id="cart-modal-2" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="cart-title-2">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close cart">&times;</button>
+      <h2 id="cart-title-2">Your Cart</h2>
+      <div id="cart-items-2" class="cart-items" role="list"></div>
+      <div class="cart-actions">
+        <button id="clear-cart-2" class="btn danger">Clear Cart</button>
+        <button id="process-order-2" class="btn primary">Process Order</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div>
+        <p>&copy; <span id="year-2"></span> Book Haven Bookstore</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js" defer></script>
+</body>
+</html>
