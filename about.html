@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Book Haven — About Us</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Book Haven homepage">
+        <img src="assets/logo-inkwell-blue.png" alt="Book Haven logo" class="logo">
+        <span class="brand-name">Book Haven</span>
+      </a>
+
+      <nav class="main-nav" role="navigation" aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html" class="active">About Us</a></li>
+          <li><a href="staff-picks.html">Staff Picks</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="cart-btn-3" class="cart-btn" aria-label="View cart">Cart (<span id="cart-count-3">0</span>)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <h1>About Book Haven</h1>
+    <section>
+      <p>Book Haven Bookstore is a local treasure for book enthusiasts, offering a diverse selection of books, magazines, journals, and office supplies. We celebrate the written word, foster literary discovery, and support intellectual growth.</p>
+
+      <h2>Contact Us</h2>
+      <form id="contact-form" novalidate>
+        <div class="form-row">
+          <label for="contact-name">Name</label>
+          <input id="contact-name" name="name" type="text" required aria-required="true" />
+        </div>
+
+        <div class="form-row">
+          <label for="contact-email">Email</label>
+          <input id="contact-email" name="email" type="email" required aria-required="true" />
+        </div>
+
+        <div class="form-row">
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" rows="5" required aria-required="true"></textarea>
+        </div>
+
+        <button type="submit" class="btn primary">Send Message</button>
+      </form>
+
+      <p id="contact-msg" aria-live="polite" class="sr-only"></p>
+
+    </section>
+
+    <section class="store-info" aria-labelledby="store-info-title">
+      <h2 id="store-info-title">Store Info</h2>
+      <table class="hours-table" role="table" aria-label="Hours of operation">
+        <thead>
+          <tr><th>Day</th><th>Hours</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Monday–Friday</td><td>9 a.m.–8 p.m.</td></tr>
+          <tr><td>Saturday</td><td>10 a.m.–6 p.m.</td></tr>
+          <tr><td>Sunday</td><td>11 a.m.–5 p.m.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div><p>&copy; <span id="year-3"></span> Book Haven Bookstore</p></div>
+    </div>
+  </footer>
+
+  <script src="js/script.js" defer></script>
+</body>
+</html>
