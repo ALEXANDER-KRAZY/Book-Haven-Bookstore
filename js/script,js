@@ -1,0 +1,268 @@
+/* Global app script for Book Haven */
+(() => {
+  // Utilities
+  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+  /* ====== NAV TOGGLE (accessible) ====== */
+  function initNavToggle() {
+    const toggles = [$('#nav-toggle'), $('#nav-toggle-2')].filter(Boolean);
+    toggles.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = btn.getAttribute('aria-controls');
+        const nav = document.getElementById(id);
+        if (!nav) return;
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        if (!expanded) {
+          nav.style.display = 'block';
+        } else {
+          nav.style.display = '';
+        }
+      });
+    });
+  }
+
+  /* ====== CART (sessionStorage) ====== */
+  const CART_KEY = 'bh_cart_v1';
+  function getCart() {
+    try {
+      const raw = sessionStorage.getItem(CART_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+  function saveCart(cart) {
+    sessionStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartCounts();
+  }
+  function addToCart(item) {
+    const cart = getCart();
+    cart.push(item);
+    saveCart(cart);
+    alert(`${item.title} added to cart.`);
+  }
+  function clearCart() {
+    sessionStorage.removeItem(CART_KEY);
+    updateCartCounts();
+  }
+  function processOrder() {
+    const cart = getCart();
+    if (!cart.length) {
+      alert('Your cart is empty.');
+      return;
+    }
+    // Basic processing simulation: mark processed in session (so repeated clicks show processed)
+    if (sessionStorage.getItem('bh_order_processed')) {
+      alert('Order already processed.');
+      return;
+    }
+    sessionStorage.setItem('bh_order_processed', 'true');
+    alert('Order processed. Thank you!');
+    clearCart();
+  }
+
+  function updateCartCounts() {
+    const count = getCart().length;
+    $$('#cart-count, #cart-count-2, #cart-count-3, #cart-count-4').forEach(el => {
+      if (el) el.textContent = String(count);
+    });
+  }
+
+  /* Render cart in modal */
+  function renderCart(modalId = '#cart-modal', itemsContainerId = '#cart-items') {
+    const modal = document.querySelector(modalId);
+    const itemList = document.querySelector(itemsContainerId);
+    if (!modal || !itemList) return;
+    const cart = getCart();
+    itemList.innerHTML = '';
+    if (!cart.length) {
+      itemList.innerHTML = '<p>Your cart is empty.</p>';
+      return;
+    }
+    cart.forEach((it, idx) => {
+      const row = document.createElement('div');
+      row.className = 'cart-item';
+      row.innerHTML = `<div style="flex:1"><strong>${escapeHtml(it.title)}</strong><div class="caption">Qty: 1</div></div><div style="min-width:70px;text-align:right">$${Number(it.price).toFixed(2)}</div>`;
+      itemList.appendChild(row);
+    });
+    // show totals (simple)
+    const total = cart.reduce((s, i) => s + Number(i.price), 0);
+    const totalRow = document.createElement('div');
+    totalRow.style.marginTop = '1rem';
+    totalRow.innerHTML = `<strong>Total:</strong> $${total.toFixed(2)}`;
+    itemList.appendChild(totalRow);
+  }
+
+  /* modal open/close wiring */
+  function initCartModals() {
+    // open buttons
+    $$('#cart-btn, #cart-btn-2, #cart-btn-3, #cart-btn-4').forEach(btn => {
+      btn && btn.addEventListener('click', () => {
+        // choose first modal available
+        const modal = document.querySelector('#cart-modal') || document.querySelector('#cart-modal-2');
+        if (!modal) return;
+        modal.setAttribute('aria-hidden', 'false');
+        renderCart('#' + modal.id, '#' + (modal.querySelector('.cart-items')?.id || modal.querySelector('.cart-items')?.getAttribute('id') || 'cart-items'));
+      });
+    });
+
+    // close buttons
+    $$('.modal-close').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const modal = btn.closest('.modal');
+        modal && modal.setAttribute('aria-hidden', 'true');
+      });
+    });
+
+    // clear/process
+    const clearBtn = $('#clear-cart') || $('#clear-cart-2');
+    const processBtn = $('#process-order') || $('#process-order-2');
+    clearBtn && clearBtn.addEventListener('click', () => {
+      if (!confirm('Clear cart?')) return;
+      clearCart();
+      const modal = document.querySelector('#cart-modal') || document.querySelector('#cart-modal-2');
+      modal && renderCart('#' + modal.id, '#' + (modal.querySelector('.cart-items')?.id || 'cart-items'));
+      alert('Cart cleared.');
+    });
+    processBtn && processBtn.addEventListener('click', () => {
+      processOrder();
+    });
+  }
+
+  /* ====== GALLERY add-to-cart handlers ====== */
+  function initGallery() {
+    $$('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const productEl = btn.closest('.product');
+        if (!productEl) return;
+        const id = productEl.dataset.id;
+        const title = productEl.dataset.title;
+        const price = productEl.dataset.price;
+        addToCart({ id, title, price });
+      });
+    });
+  }
+
+  /* ====== SUBSCRIBE (localStorage) ====== */
+  const SUB_KEY = 'bh_subscribers_v1';
+  function getSubscribers() {
+    try {
+      const raw = localStorage.getItem(SUB_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveSubscriber(email) {
+    const subs = getSubscribers();
+    if (subs.includes(email)) return false;
+    subs.push(email);
+    localStorage.setItem(SUB_KEY, JSON.stringify(subs));
+    return true;
+  }
+  function initSubscribe() {
+    const form = $('#subscribe-form');
+    if (!form) return;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = $('#subscriber-email').value.trim();
+      const msg = $('#subscribe-msg');
+      if (!validateEmail(email)) {
+        msg.textContent = 'Please enter a valid email address.';
+        msg.className = 'error';
+        msg.removeAttribute('aria-hidden');
+        alert('Please enter a valid email address.');
+        return;
+      }
+      const ok = saveSubscriber(email);
+      if (!ok) {
+        alert('You are already subscribed.');
+      } else {
+        alert('Thank you for subscribing!');
+      }
+      form.reset();
+    });
+  }
+
+  /* ====== CONTACT (localStorage) ====== */
+  const CONTACT_KEY = 'bh_contacts_v1';
+  function getContacts() {
+    try {
+      const raw = localStorage.getItem(CONTACT_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveContact(entry) {
+    const list = getContacts();
+    list.push(entry);
+    localStorage.setItem(CONTACT_KEY, JSON.stringify(list));
+  }
+  function initContactForm() {
+    const form = $('#contact-form');
+    if (!form) return;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = $('#contact-name').value.trim();
+      const email = $('#contact-email').value.trim();
+      const message = $('#contact-message').value.trim();
+
+      if (!name || !validateEmail(email) || !message) {
+        alert('Please complete all fields with valid information.');
+        return;
+      }
+      saveContact({ name, email, message, date: new Date().toISOString() });
+      alert('Your message has been received. We will reply shortly.');
+      form.reset();
+    });
+  }
+
+  /* ====== Staff picks reveal (small interactive) ====== */
+  function initStaffPicks() {
+    $$('.reveal').forEach(btn => {
+      btn.addEventListener('click', () => {
+        alert(btn.getAttribute('data-msg') || 'A staff favorite!');
+      });
+    });
+  }
+
+  /* ====== Utility helpers ====== */
+  function validateEmail(email) {
+    // simple email regex
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  /* ====== Initialization ====== */
+  function init() {
+    // update years
+    const years = (new Date()).getFullYear();
+    $('#year') && ($('#year').textContent = years);
+    $('#year-2') && ($('#year-2').textContent = years);
+    $('#year-3') && ($('#year-3').textContent = years);
+    $('#year-4') && ($('#year-4').textContent = years);
+
+    initNavToggle();
+    initCartModals();
+    initGallery();
+    initSubscribe();
+    initContactForm();
+    initStaffPicks();
+    updateCartCounts();
+
+    // wire global add-to-cart buttons in case some pages include product lists dynamically
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('.add-to-cart')) {
+        e.preventDefault();
+        e.target.click();
+      }
+    });
+  }
+
+  // run when DOM ready
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+
+})();
